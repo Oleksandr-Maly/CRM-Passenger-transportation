@@ -3,9 +3,8 @@ import { Form, Button, ButtonGroup } from 'react-bootstrap';
 
 export const AuthForm = ({ 
   title, 
+  buttonTitle,
   handleSubmit,
-  handleSignInWithGoogle,
-  handleSignInWithFacebook 
 }) => {
   const emailRef = useRef('');
   const passwordRef = useRef('');
@@ -38,23 +37,6 @@ export const AuthForm = ({
         {title}
       </Button>
 
-      <div className='mt-4 w-100 d-flex flex-column justify-content-center align-items-center'>
-      <p> or using: </p>
-      <ButtonGroup className=' w-100 d-flex justify-content-center'>
-        <Button 
-          className='btn btn-light w-100' 
-          onClick={handleSignInWithGoogle}
-        >
-          <i className="bi bi-google"></i>
-        </Button>
-        <Button 
-          className='btn btn-light w-100'
-          onClick={handleSignInWithFacebook}
-        >
-          <i className="bi bi-facebook"></i>
-        </Button>
-      </ButtonGroup>
-    </div>
     </Form>
   )
 }

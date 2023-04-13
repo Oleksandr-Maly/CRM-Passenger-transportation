@@ -8,12 +8,12 @@ import { store } from "./store";
 import './firebase'
 
 import ErrorPage from "./pages/ErrorPage";
-import UsersPage from "./pages/UsersPage";
+import { UsersPage } from "./pages/UsersPage";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";
 
-
-
+import { TestLoginPage } from "./pages/TestLoginPage";
+import { PrivateRoute } from './component/PrivatRoute';
 
 
 const router = createBrowserRouter([
@@ -23,9 +23,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/user-page",
-    element: <UsersPage />,
-    errorElement: <ErrorPage />,
+    path: "/testLogin",
+    element: <TestLoginPage />,
+  },
+  {
+    path: 'user-page',
+    element: <PrivateRoute roles={['admin', 'user']} element={<UsersPage />} />,
+    // children: [
+    //   { path: '/', element: <UsersDashboardPage /> },
+    //   { path: 'profile', element: <UserProfilePage /> }
+    // ]
   },
   {
     path: "/login",
@@ -46,22 +53,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
   </React.StrictMode>,
 )
-
-
-
-// example of path with children: 
-// {
-//   path: "/",
-//   element: <SignUpPage />,
-//   errorElement: <ErrorPage />,
-//   children: [
-//     {
-//       path: "login",
-//       element: <Login />,
-//     },
-//     {
-//       path: "signup",
-//       element: <SignUp />,
-//     },
-//   ],
-// },

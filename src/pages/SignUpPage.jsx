@@ -1,11 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 import { Container, Card, Image } from "react-bootstrap";
-import { SignUp } from '../component/SignUp';
+
+import { useFirebaseAuth } from '../hooks/useFirebaseAuth';
+
+import { AuthForm } from '../component/AuthForm'
+import { SignInWithGoogleorFacebook } from '../component/SignInWithGoogleorFacebook';
 
 export const SignUpPage = () => {
-  return (
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  const { user, signUpWithEmailAndPassword } = useFirebaseAuth();
+
+  console.log(user);
+
+  const navigate = useNavigate();
+  const handleSignUpWithEmailAndPassword = async (e, email, password) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await signUpWithEmailAndPassword(email, password);
+      navigate('/user-page');
+    } catch (error) {
+      setError(error.message);
+      console.error('Error signing in with Email:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
     <Container
       style={{
         minHeight: "100vh",
@@ -33,7 +58,11 @@ export const SignUpPage = () => {
           className="w-50 d-flex flex-column align-items-center justify-content-center" 
         >
           <Card.Title>Create account</Card.Title>
-          <SignUp />
+          <AuthForm
+            title='SignUp'
+            handleSubmit={handleSignUpWithEmailAndPassword}
+            />   
+          <SignInWithGoogleorFacebook />
           <Card.Text 
           className="mt-4" 
           >

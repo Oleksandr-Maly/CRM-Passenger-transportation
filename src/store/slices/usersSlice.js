@@ -4,6 +4,8 @@ export const initialUserState = {
   email: null,
   token: null,
   id: null,
+  role: null,
+  name: null,
 };
 
 const userSlice = createSlice({
@@ -14,11 +16,15 @@ const userSlice = createSlice({
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.id = action.payload.id;
+      state.role = action.payload.role;
+      state.name = action.payload.name;
     },
     removeUser(state) {
       state.email = null;
       state.token = null;
       state.id = null;
+      state.role= null;
+      state.name = null;
     },
   },
 });

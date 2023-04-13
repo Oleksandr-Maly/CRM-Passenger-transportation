@@ -1,9 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 import { Container, Card } from "react-bootstrap";
-import { Login } from '../component/Login';
+
+import { AuthForm } from '../component/AuthForm';
+import { SignInWithGoogleorFacebook } from '../component/SignInWithGoogleorFacebook';
+
+import { useFirebaseAuth } from '../hooks/useFirebaseAuth';
 
 export const LoginPage = () => {
+  const [logedIn, setLogedIn] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const { signInWithEmailPassword } = useFirebaseAuth();
+
+  const navigate = useNavigate();
+
+
+  const handleLogin = async (e, email, password) => {
+    e.preventDefault();
+    
+    try {
+      await signInWithEmailPassword(email, password);
+      setLogedIn(true)
+      navigate('/user-page');
+    } catch (error) {
+      console.log(
+        'error code: ', error.code,
+        'error message: ', error.message
+      );
+      setError(error.message);
+    }
+  }
+
+  useEffect(() => {
+    setLogedIn(true)
+  }, [logedIn])
+  
   return (
     <Container
       style={{
@@ -20,11 +53,16 @@ export const LoginPage = () => {
           className="w-50" 
           style={{ objectFit: 'cover', objectPosition: 'right' }}
         />
+
         <Card.Body
           className="w-50 d-flex flex-column align-items-center justify-content-center" 
         >
           <Card.Title>Hello!</Card.Title>
-        <Login />
+          <AuthForm
+            title='Log In'
+            handleSubmit={handleLogin}
+          />  
+         <SignInWithGoogleorFacebook />
           <Card.Text 
           className="mt-4" 
           >
