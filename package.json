@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 8080",
-    "predeploy": "rm -rf dist",
-    "deploy": "vite build && gh-pages -d dist"
+    // "predeploy": "rm -rf dist",
+    // "deploy": "vite build && gh-pages -d dist"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
