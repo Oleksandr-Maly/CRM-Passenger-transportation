@@ -1,1 +1,1 @@
-[Live Demo](https://https://oleksandr-maly.github.io/CRM-Passenger-transportation/)
+[Live Demo](https://oleksandr-maly.github.io/CRM-Passenger-transportation/)
